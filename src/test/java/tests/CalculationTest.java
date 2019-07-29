@@ -29,10 +29,8 @@ public class CalculationTest {
         enterEmail("test1@mail.com");
         //2. overit ze total income nie je prazdny
         //driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText());
-        Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText().isEmpty());
-        Assert.assertTrue(
-                driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText().contains("kr")
-        );
+        Assert.assertFalse(getTotalIncome().isEmpty());
+        Assert.assertTrue(getTotalIncome().contains("kr"));
     }
 
     @Test
@@ -44,10 +42,8 @@ public class CalculationTest {
         enterEmail("test2@mail.com");
         //2. overit ze interest income nie je prazdny
         driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText();
-        Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().isEmpty());
-        Assert.assertTrue(
-                driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().contains("kr")
-        );
+        Assert.assertFalse(getTotalInterest().isEmpty());
+        Assert.assertTrue(getTotalInterest().contains("kr"));
     }
 
     @Test
@@ -59,7 +55,7 @@ public class CalculationTest {
         enterEmail("test3@mail.com");
         //2. overit ze Risk nie je prazdny
         //driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText());
-        Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText().isEmpty());
+        Assert.assertFalse(getRisk().isEmpty());
     }
 
     @Test
