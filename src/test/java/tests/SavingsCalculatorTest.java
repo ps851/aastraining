@@ -1,26 +1,12 @@
 package tests;
 
-import org.junit.After;
+import Base.TestBase;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-import sun.font.TrueTypeFont;
 
-public class SavingsCalculatorTest {
-
-    WebDriver driver; //definovanie drivera pre cely kod a neskor ho potom u kokretne volas
-
-    @Before
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.get("http://localhost/savingscalculator.php");
-    }
-
+public class SavingsCalculatorTest extends TestBase {
     @Test
     public void itShouldDisplayTitle() {
         //driver.findElement(By.cssSelector("h1")).getText();
@@ -56,10 +42,5 @@ public class SavingsCalculatorTest {
 
     private void selectFund(String fundToSelect){
         new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
-    }
-    @After
-    public void tearDown(){
-        driver.close();
-        driver.quit();
     }
 }
