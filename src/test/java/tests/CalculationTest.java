@@ -25,8 +25,8 @@ public class CalculationTest {
         //1. vybrat fund, zadat sumu, roky, email
         selectFund("Death Star real estate");
         enterInvestment("1000");
-        enterYears("30");
-        enterEmail("test@mail.com");
+        enterYears("10");
+        enterEmail("test1@mail.com");
         //2. overit ze total income nie je prazdny
         //driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText());
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText().isEmpty());
@@ -38,10 +38,10 @@ public class CalculationTest {
     @Test
     public void itShouldCalculateInterestIncome() {
         //1. vybrat fund, zadat sumu, roky, email
-        selectFund("Death Star real estate");
-        enterInvestment("1000");
-        enterYears("30");
-        enterEmail("test@mail.com");
+        selectFund("Tom & Jerry corp");
+        enterInvestment("2000");
+        enterYears("20");
+        enterEmail("test2@mail.com");
         //2. overit ze interest income nie je prazdny
         driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText();
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().isEmpty());
@@ -53,13 +53,45 @@ public class CalculationTest {
     @Test
     public void itShouldCalculateRisk() {
         //1. vybrat fund, zadat sumu, roky, email
-        selectFund("Death Star real estate");
-        enterInvestment("1000");
+        selectFund("Batman's Cave Development");
+        enterInvestment("3000");
         enterYears("30");
-        enterEmail("test@mail.com");
+        enterEmail("test3@mail.com");
         //2. overit ze Risk nie je prazdny
         //driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText());
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText().isEmpty());
+    }
+
+    @Test
+    public void itShouldCalculateTotalIncomeForEachFund(){
+        String[] arrayOfFunds ={"Batman's Cave Development", "Tom & Jerry corp", "Death Star real estate"};
+        for (String arrayOfFund : arrayOfFunds) {
+            selectFund(arrayOfFund);
+            enterInvestment("3000");
+            enterYears("30");
+            enterEmail("test3@mail.com");
+            Assert.assertFalse(
+                    driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
+                            .getText()
+                            .isEmpty());
+            Assert.assertTrue(
+                    driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
+                            .getText()
+                            .contains("kr"));
+            Assert.assertFalse(
+                    driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p"))
+                            .getText()
+                            .isEmpty());
+            Assert.assertTrue(
+                    driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p"))
+                            .getText()
+                            .contains("kr"));
+            Assert.assertFalse(
+                    driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p"))
+                            .getText()
+                            .isEmpty());
+        }
+
     }
 
     private void selectFund(String fundToSelect){
@@ -67,14 +99,17 @@ public class CalculationTest {
     }
 
     private void enterInvestment(String investmentToEnter){
+        driver.findElement(By.id("oneTimeInvestmentInput")).clear();
         driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(investmentToEnter);
     }
 
     private void enterYears(String yearsToEnter){
+        driver.findElement(By.id("yearsInput")).clear();
         driver.findElement(By.id("yearsInput")).sendKeys(yearsToEnter);
     }
 
     private void enterEmail(String emailToEnter){
+        driver.findElement(By.id("emailInput")).clear();
         driver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
     }
 
