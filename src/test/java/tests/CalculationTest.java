@@ -70,26 +70,11 @@ public class CalculationTest {
             enterInvestment("3000");
             enterYears("30");
             enterEmail("test3@mail.com");
-            Assert.assertFalse(
-                    driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
-                            .getText()
-                            .isEmpty());
-            Assert.assertTrue(
-                    driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p"))
-                            .getText()
-                            .contains("kr"));
-            Assert.assertFalse(
-                    driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p"))
-                            .getText()
-                            .isEmpty());
-            Assert.assertTrue(
-                    driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p"))
-                            .getText()
-                            .contains("kr"));
-            Assert.assertFalse(
-                    driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p"))
-                            .getText()
-                            .isEmpty());
+            Assert.assertFalse(getTotalIncome().isEmpty());
+            Assert.assertTrue(getTotalIncome().contains("kr"));
+            Assert.assertFalse(getTotalInterest().isEmpty());
+            Assert.assertTrue(getTotalInterest().contains("kr"));
+            Assert.assertFalse(getRisk().isEmpty());
         }
 
     }
@@ -111,6 +96,18 @@ public class CalculationTest {
     private void enterEmail(String emailToEnter){
         driver.findElement(By.id("emailInput")).clear();
         driver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
+    }
+
+    private String getTotalIncome(){
+        return driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText();
+    }
+
+    private String getTotalInterest(){
+        return driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText();
+    }
+
+    private String getRisk(){
+        return driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText();
     }
 
     @After
