@@ -12,7 +12,7 @@ import sun.font.TrueTypeFont;
 
 public class SavingsCalculatorTest {
 
-    WebDriver driver; //definovanie drivera pre cely kod
+    WebDriver driver; //definovanie drivera pre cely kod a neskor ho potom u kokretne volas
 
     @Before
     public void setUp(){
@@ -36,7 +36,7 @@ public class SavingsCalculatorTest {
     @Test
     public void itShouldEnableApplyButton(){
         //1. vybrat fond
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
+        selectFund("Death Star real estate");
         //2.zadat sumu
         driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1000");
         //3.zadat pocet rokov
@@ -54,6 +54,9 @@ public class SavingsCalculatorTest {
         Assert.assertEquals("Select your fund", option);
     }
 
+    private void selectFund(String fundToSelect){
+        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
+    }
     @After
     public void tearDown(){
         driver.close();

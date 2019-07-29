@@ -23,10 +23,10 @@ public class CalculationTest {
     @Test
     public void itShouldCalculateTotalIncome() {
         //1. vybrat fund, zadat sumu, roky, email
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1000");
-        driver.findElement(By.id("yearsInput")).sendKeys("25");
-        driver.findElement(By.id("emailInput")).sendKeys("test@mail.com");
+        selectFund("Death Star real estate");
+        enterInvestment("1000");
+        enterYears("30");
+        enterEmail("test@mail.com");
         //2. overit ze total income nie je prazdny
         //driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText());
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(1) > p")).getText().isEmpty());
@@ -38,12 +38,12 @@ public class CalculationTest {
     @Test
     public void itShouldCalculateInterestIncome() {
         //1. vybrat fund, zadat sumu, roky, email
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1000");
-        driver.findElement(By.id("yearsInput")).sendKeys("25");
-        driver.findElement(By.id("emailInput")).sendKeys("test@mail.com");
+        selectFund("Death Star real estate");
+        enterInvestment("1000");
+        enterYears("30");
+        enterEmail("test@mail.com");
         //2. overit ze interest income nie je prazdny
-        //driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText());
+        driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText();
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().isEmpty());
         Assert.assertTrue(
                 driver.findElement(By.cssSelector("div.result > div:nth-child(2) > p")).getText().contains("kr")
@@ -53,13 +53,29 @@ public class CalculationTest {
     @Test
     public void itShouldCalculateRisk() {
         //1. vybrat fund, zadat sumu, roky, email
-        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText("Batman's Cave Development");
-        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys("1000");
-        driver.findElement(By.id("yearsInput")).sendKeys("25");
-        driver.findElement(By.id("emailInput")).sendKeys("test@mail.com");
+        selectFund("Death Star real estate");
+        enterInvestment("1000");
+        enterYears("30");
+        enterEmail("test@mail.com");
         //2. overit ze Risk nie je prazdny
         //driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText());
         Assert.assertFalse(driver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText().isEmpty());
+    }
+
+    private void selectFund(String fundToSelect){
+        new Select(driver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
+    }
+
+    private void enterInvestment(String investmentToEnter){
+        driver.findElement(By.id("oneTimeInvestmentInput")).sendKeys(investmentToEnter);
+    }
+
+    private void enterYears(String yearsToEnter){
+        driver.findElement(By.id("yearsInput")).sendKeys(yearsToEnter);
+    }
+
+    private void enterEmail(String emailToEnter){
+        driver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
     }
 
     @After
