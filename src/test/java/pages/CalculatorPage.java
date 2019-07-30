@@ -1,5 +1,6 @@
 package pages;
 
+import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,8 +14,9 @@ public class CalculatorPage {
         this.pageDriver = driver;
     }
 
-    public void selectFund(String fundToSelect){
+    public String selectFund(String fundToSelect){
         new Select(pageDriver.findElement(By.id("fundSelect"))).selectByVisibleText(fundToSelect);
+        return fundToSelect;
     }
 
     public void enterInvestment(String investmentToEnter){

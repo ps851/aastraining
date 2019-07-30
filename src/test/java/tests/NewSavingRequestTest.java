@@ -34,7 +34,7 @@ public class NewSavingRequestTest extends TestBase {
     @Test
     public void itShouldDisplayFundInNewRequest() {
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-        calculatorPage.selectFund("Death Star real estate");
+        String expectedSelectedFund = calculatorPage.selectFund("Death Star real estate");
         calculatorPage.enterInvestment("1000");
         calculatorPage.enterYears("10");
         calculatorPage.enterEmail("test1@mail.com");
@@ -42,7 +42,7 @@ public class NewSavingRequestTest extends TestBase {
 
         String selectedFund = driver.findElement(By.xpath("//p[contains(@class, 'fund-description')]")).getText();
 
-        Assert.assertEquals("Death Star real estate", selectedFund);
+        Assert.assertEquals(expectedSelectedFund, selectedFund);
 
     }
 }
