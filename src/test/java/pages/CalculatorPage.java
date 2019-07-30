@@ -3,6 +3,7 @@ package pages;
 import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -42,6 +43,7 @@ public class CalculatorPage {
     public void enterEmail(String emailToEnter) {
         pageDriver.findElement(By.id("emailInput")).clear();
         pageDriver.findElement(By.id("emailInput")).sendKeys(emailToEnter);
+        pageDriver.findElement(By.id("emailInput")).sendKeys(Keys.TAB);
     }
 
     public String getTotalIncome() {
