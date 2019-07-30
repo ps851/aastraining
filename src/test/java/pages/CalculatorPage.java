@@ -1,5 +1,6 @@
 package pages;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -43,6 +44,7 @@ public class CalculatorPage {
         return pageDriver.findElement(By.cssSelector("div.result > div:nth-child(3) > p")).getText();
     }
 
-
-
+    public void submitRequest() {
+        pageDriver.findElement(By.cssSelector("button.btn-block")).click();
+    }
 }
