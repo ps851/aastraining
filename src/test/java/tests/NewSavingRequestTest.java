@@ -4,6 +4,7 @@ import base.TestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import pages.CalculatorPage;
 import utils.MathUtils;
 
@@ -13,7 +14,7 @@ public class NewSavingRequestTest extends TestBase {
     public void itShouldDisplayTotalIncomeInNewRequest() {
         //ARRANGE / GIVEN
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-        String expectedSelectedFund = calculatorPage.selectFund("Death Star real estate");
+        calculatorPage.selectRandomFund();
         calculatorPage.enterInvestment("1000");
         calculatorPage.enterYears("10");
         calculatorPage.enterEmail("test1@mail.com");
@@ -40,7 +41,7 @@ public class NewSavingRequestTest extends TestBase {
     @Test
     public void itShouldDisplayFundInNewRequest() {
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-        String expectedSelectedFund = calculatorPage.selectFund("Death Star real estate");
+        calculatorPage.selectFund("Batman's Cave Development");
         calculatorPage.enterInvestment("1000");
         calculatorPage.enterYears("10");
         calculatorPage.enterEmail("test1@mail.com");
@@ -48,7 +49,7 @@ public class NewSavingRequestTest extends TestBase {
 
         String selectedFund = driver.findElement(By.xpath("//p[contains(@class, 'fund-description')]")).getText();
 
-        Assert.assertEquals(expectedSelectedFund, selectedFund);
+        Assert.assertEquals("Batman's Cave Development", selectedFund);
 
     }
 
@@ -66,4 +67,5 @@ public class NewSavingRequestTest extends TestBase {
         Assert.assertEquals(20,
                 driver.findElements(By.cssSelector("ul.saving-list > li > div.saving-detail")).size());
     }
-}
+
+    }
