@@ -4,32 +4,38 @@ import base.TestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pages.CalculatorPage;
 
 public class NewSavingRequestTest extends TestBase {
 
     @Test
     public void itShouldDisplayTotalIncomeInNewRequest() {
+        //ARRANGE / GIVEN
         CalculatorPage calculatorPage = new CalculatorPage(driver);
-        calculatorPage.selectFund("Death Star real estate");
+        String expectedSelectedFund = calculatorPage.selectFund("Death Star real estate");
         calculatorPage.enterInvestment("1000");
         calculatorPage.enterYears("10");
         calculatorPage.enterEmail("test1@mail.com");
         //precitat total income
         String calculatedIncome = calculatorPage.getTotalIncome();
-        //vytvorit novy savin
+
+        //
+        //vytvorit novy saving
         calculatorPage.submitRequest();
+
+        //ASSERT
         //overit ze sa total income zobrazi v requeste
-        String calculatedIncome2 = driver.findElement
+        System.out.println(calculatorPage.getFirstSavingDetails()
+                .findElement(By.cssSelector("p.fund-description")).getText());
+
+        String calculatedIncomeXpath = driver.findElement
                 (By.xpath("//ul[contains(@class, 'saving-list')]/li//div[contains (@class, 'amounts')]/p/span"))
                 .getText();
-        Assert.assertEquals(calculatedIncome, calculatedIncome2);
-
-        Assert.assertEquals(
-                calculatedIncome,
-                driver.findElement(By.cssSelector("ul.saving-list > li div.amounts > p > span")).getText());
-
+        Assert.assertEquals(calculatedIncome, calculatedIncomeXpath);
     }
+
+
 
     @Test
     public void itShouldDisplayFundInNewRequest() {
