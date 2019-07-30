@@ -4,8 +4,8 @@ import base.TestBase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pages.CalculatorPage;
+import utils.MathUtils;
 
 public class NewSavingRequestTest extends TestBase {
 
@@ -20,7 +20,7 @@ public class NewSavingRequestTest extends TestBase {
         //precitat total income
         String calculatedIncome = calculatorPage.getTotalIncome();
 
-        //
+        //CREATE
         //vytvorit novy saving
         calculatorPage.submitRequest();
 
@@ -50,5 +50,20 @@ public class NewSavingRequestTest extends TestBase {
 
         Assert.assertEquals(expectedSelectedFund, selectedFund);
 
+    }
+
+    @Test
+    public void itShouldDisplayTwentyRequests() {
+        CalculatorPage calculatorPage = new CalculatorPage(driver);
+        for (int i = 0; i < 20; i++) {
+            calculatorPage.selectFund("Death Star real estate");
+            calculatorPage.enterInvestment(String.valueOf(MathUtils.getRandomNumberInRange(1000,10000)));
+            calculatorPage.enterYears(String.valueOf(MathUtils.getRandomNumberInRange(10, 30)));
+            calculatorPage.enterEmail("test1@mail.com");
+            //submit
+            calculatorPage.submitRequest();
+        }
+        Assert.assertEquals(20,
+                driver.findElements(By.cssSelector("ul.saving-list > li > div.saving-detail")).size());
     }
 }
